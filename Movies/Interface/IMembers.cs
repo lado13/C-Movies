@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Movies
 {
@@ -14,6 +10,5 @@ namespace Movies
         void RecoveryInformation(string name, MembersSystem upDateMember);
         void Registration(MembersSystem member);
         List<MembersSystem> Search(string memberName);
-
     }
 }

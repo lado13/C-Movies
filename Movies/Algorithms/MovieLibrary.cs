@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Movies
 {
     internal class MovieLibrary : MovieSystem, IMovies
     {
         private List<MovieSystem> movies;
-
         public MovieLibrary()
         {
             movies = new List<MovieSystem>()
@@ -20,40 +15,25 @@ namespace Movies
                 new MovieSystem(){Title = "Intelstellar", DateOfShooting = new DateTime(2014,3,14), Director ="Christofer Nolan", Genre = "Fantastic,Drama", IMDB = 8.1, Nationality = "USA"}
             };
         }
-
-
-
-
-
         public void AddMovie(MovieSystem movie)
         {
             try
             {
-
                 if (movies.Any(m => m.Title == movie.Title))
                 {
                     Console.WriteLine("Movie already exists!!!");
                 }
                 else
                 {
-
                     movies.Add(movie);
                     Console.WriteLine("Added Succesfully");
-
                 }
-
             }
             catch (FormatException ex)
             {
                 Console.WriteLine($"Error adding movie: {ex.Message}");
             }
         }
-
-
-
-
-
-
         public void PrintMovie()
         {
             foreach (var item in movies)
@@ -61,16 +41,13 @@ namespace Movies
                 Console.WriteLine(item);
             }
         }
-
         public void RemoveMovie(string movieName)
         {
             try
             {
-
                 MovieSystem remove = movies.Find(mov => mov.Title == movieName);
                 if (remove != null)
                 {
-
                     movies.Remove(remove);
                     Console.WriteLine("Movie removed!");
                 }
@@ -78,34 +55,22 @@ namespace Movies
                 {
                     Console.WriteLine("Not Found");
                 }
-
-
-
-
             }
             catch (MetodsException ex)
             {
-
                 Console.WriteLine($"Somting wrong! {ex}");
             }
-
-        }
-
+        }      
         public List<MovieSystem> SearchMovie(string searchText)
         {
             return movies.Where(title => title.Title == searchText).ToList();
         }
 
+        [Obsolete("This search will be remove!")]
         public List<MovieSystem> SearchMovieByIMDB(double searchMovieIMDB)
         {
             return movies.Where(movie => movie.IMDB >= searchMovieIMDB).ToList();
         }
-
-
-
-
-
-
         public void EditMovie(string title, MovieSystem updatedMovie)
         {
             try
@@ -130,14 +95,5 @@ namespace Movies
                 Console.WriteLine($"Error editing movie: {ex.Message}");
             }
         }
-
-
-
-
-
-
-
-
-
     }
 }
