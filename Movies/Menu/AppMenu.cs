@@ -10,7 +10,7 @@ namespace Movies
             Console.WriteLine("Print Movie(1)\nSearch Movie(2)\nAdd Movie(3)\nRemove movie(4)\nEdit movie(5)\n------------------\nMember registration(6)\nPrint member(7)\nRemove member(8)\nSearch member(9)\nLogin(10)");
             MovieLibrary movieLibrary = new MovieLibrary();
             MovieMember movieMember = new MovieMember();
-            
+
             while (true)
             {
                 switch (Console.ReadLine())
@@ -104,6 +104,7 @@ namespace Movies
                         {
                             Console.WriteLine(item);
                         }
+                        Console.WriteLine("User not found!!!");
                         break;
                     case "10":
                         MemberInfo();
@@ -116,38 +117,70 @@ namespace Movies
         }
         public static void MemberInfo()
         {
+            MovieMember member = new MovieMember();
             int quantity = 0;
             while (true)
             {
                 try
                 {
-                    MovieMember member = new MovieMember();
-                    Console.Write("Enter user name: ");
-                    string logName = Console.ReadLine();
-                    Console.Write("Enter password: ");
-                    string password = Console.ReadLine();
-                    quantity++;
-                    Console.WriteLine(quantity);
-                    if (member.Login(logName, password) && quantity != 3)
+                    Console.WriteLine("Login(1) Registration(2)");
+                    switch (Console.ReadLine())
                     {
-                        Console.WriteLine("loged");
-                        Console.WriteLine("---------");                            
-                        WatchMovie();
-                    }
-                    else if (quantity == 3)
-                    {                     
-                        Console.WriteLine("Forget password recovery your information!!!");
-                        Console.WriteLine("----------------------------");
-                        Console.Write("Enter user name: ");
-                        string recoveryUserName = Console.ReadLine();
-                        Console.Write("Enter new password: ");
-                        member.Password = Console.ReadLine();
-                        member.RecoveryInformation(recoveryUserName, member);
-                        quantity = 0;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Wrong user try again!!!");
+
+                        case "1":
+                            Console.Write("Enter user name: ");
+                            string logName = Console.ReadLine();
+                            Console.Write("Enter password: ");
+                            string password = Console.ReadLine();
+                            quantity++;
+                            Console.WriteLine(quantity);
+                            if (member.Login(logName, password) && quantity != 3)
+                            {
+                                Console.WriteLine("loged");
+                                Console.WriteLine("---------");
+                                WatchMovie();
+                            }
+                            else if (quantity == 3)
+                            {
+                                Console.WriteLine("Forget password recovery your information!!!");
+                                Console.WriteLine("----------------------------");
+                                Console.Write("Enter user name: ");
+                                string recoveryUserName = Console.ReadLine();
+                                Console.Write("Enter new password: ");
+                                member.Password = Console.ReadLine();
+                                member.RecoveryInformation(recoveryUserName, member);
+                                quantity = 0;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong user try again!!!");
+                            }
+                            break;
+
+                        case "2":
+
+                            MovieMember registr = new MovieMember();
+                            Console.Write("Enter name: ");
+                            registr.Name = Console.ReadLine();
+                            Console.Write("Enter lastname: ");
+                            registr.LastName = Console.ReadLine();
+                            registr.Id++;
+                            Console.Write("Enter password: ");
+                            registr.Password = Console.ReadLine();
+                            string patern = "@";
+                            Console.Write("Enter mail: ");
+                            registr.Mail = Console.ReadLine();
+                            bool isMatch = Regex.IsMatch(registr.Mail, patern);
+                            registr.RegistrationData = DateTime.Now;
+                            if (isMatch)
+                            {
+                                member.Registration(registr);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Incorect mail!!!");
+                            }
+                            break;
                     }
                 }
                 catch (Exception)
